@@ -38,15 +38,15 @@ public class Scanner {
 
         start.addNewEdge("_", id1);
         id1.addNewEdge("_", id1);
-        for (char character = 'a'; character < 'z'; character++) {
+        for (char character = 'a'; character <= 'z'; character++) {
             start.addNewEdge(String.valueOf(character), id1);
             id1.addNewEdge(String.valueOf(character), id1);
         }
-        for (char character = 'A'; character < 'Z'; character++) {
+        for (char character = 'A'; character <= 'Z'; character++) {
             start.addNewEdge(String.valueOf(character), id1);
             id1.addNewEdge(String.valueOf(character), id1);
         }
-        for (char character = '0'; character < '9'; character++) {
+        for (char character = '0'; character <= '9'; character++) {
             id1.addNewEdge(String.valueOf(character), id1);
         }
 
