@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -104,20 +105,15 @@ public class IdentifierSequence {
         return maxScope;
     }
 
-    public List<Entry<Integer, List<String>>> distinctScopeIdentifiers() {
-        int maxScope = -1;
-        int maxCount = -1;
-
-        for (Entry<Integer, HashMap<String, Integer>> entry :
-                scopeIdentifierCounts.entrySet()) {
-            if (entry.getValue().size() > maxCount || maxCount == -1) {
-                maxCount = entry.getValue().size();
-                maxScope = entry.getKey();
-            }
-            System.out.println(entry.getKey() + ": " + entry.getValue().size());
+    public List<Entry<Integer, Set<String>>> distinctScopeIdentifiers() {
+        List<Entry<Integer, Set<String>>> list = new ArrayList<Entry<Integer, Set<String>>>(scopeIdentifierCounts.size());
+        
+        for (Entry<Integer, HashMap<String, Integer>> entry : scopeIdentifierCounts.entrySet()) {
+            Entry<Integer, Set<String>> listEntry = new BasicEntry(entry.getKey(), entry.getValue().keySet());
+            list.add(listEntry);
         }
 
-        return maxScope;
+        return list;
     }
 }
 
@@ -137,5 +133,29 @@ class ValueComparator implements Comparator {
         } else {
             return -1;
         }
+    }
+}
+
+class BasicEntry<K, V> implements Entry<K, V> {
+    private final K key;
+    private V value;
+
+    public BasicEntry(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    public V setValue(V value) {
+        V old = this.value;
+        this.value = value;
+        return old;
     }
 }
