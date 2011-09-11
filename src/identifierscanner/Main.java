@@ -1,6 +1,6 @@
 package identifierscanner;
 
-import identifierscanner.statistics.Statistics;
+import identifierscanner.statistics.IdentifierSequence;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         InputStreamReader charReader;
         Scanner scan;
-        Statistics stats = new Statistics();
+        IdentifierSequence stats = new IdentifierSequence();
 
         try {
             if (args.length == 0) {

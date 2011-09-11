@@ -30,3 +30,5 @@ build/classes/identifierscanner/Token.class
 build/classes/identifierscanner/Scanner.class
 
 build/classes/identifierscanner/statistics/ValueComparator.class
+
+build/classes/identifierscanner/statistics/IdentifierSequence.class

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -13,17 +14,19 @@ import java.util.TreeMap;
  *
  * @author taylor
  */
-public class Statistics {
+public class IdentifierSequence {
+    public LinkedList<Token> tokenSequence;
     private int identifierCount;
     private HashMap<String, Integer> identifierCounts;
     private HashMap<Integer, HashMap<String, Integer>> scopeIdentifierCounts;
-    private int scope;
+    private int currScope;
 
-    public Statistics() {
+    public IdentifierSequence() {
         identifierCount = 0;
-        scope = 0;
+        currScope = 0;
         identifierCounts = new HashMap<String, Integer>();
         scopeIdentifierCounts = new HashMap<Integer, HashMap<String, Integer>>();
+        tokenSequence = new LinkedList<Token>();
     }
 
     public void takeToken(Token token) {
@@ -34,15 +37,17 @@ public class Statistics {
         else if (tokenType.equals("IDENTIFIER")) {
             countIdentifier(token.getValue());
         }
+
+        tokenSequence.add(token);
     }
 
     private int updateScope(String type) {
         if (type.equals("OPENCURLY"))
-            scope++;
+            currScope++;
         else if (type.equals("CLOSECURLY"))
-            scope--;
+            currScope--;
 
-        return scope;
+        return currScope;
     }
 
     private void countIdentifier(String value) {
@@ -56,15 +61,15 @@ public class Statistics {
 
 
         int scopeIdCount = 0;
-        if (!scopeIdentifierCounts.containsKey(scope))
-            scopeIdentifierCounts.put(scope, new HashMap<String, Integer>());
-        if (scopeIdentifierCounts.get(scope).containsKey(value))
+        if (!scopeIdentifierCounts.containsKey(currScope))
+            scopeIdentifierCounts.put(currScope, new HashMap<String, Integer>());
+        if (scopeIdentifierCounts.get(currScope).containsKey(value))
             scopeIdCount = identifierCounts.get(value);
 
-        scopeIdentifierCounts.get(scope).put(value, scopeIdCount + 1);
+        scopeIdentifierCounts.get(currScope).put(value, scopeIdCount + 1);
     }
 
-    public ArrayList<Entry<String, Integer>> topTenIdentifiers() {
+    public List<Entry<String, Integer>> topTenIdentifiers() {
         ValueComparator comparator = new ValueComparator(identifierCounts);
         TreeMap<String, Integer> sortedIdentifiers = new TreeMap(comparator);
 
@@ -87,8 +92,25 @@ public class Statistics {
         int maxScope = -1;
         int maxCount = -1;
 
-        for(Entry<Integer, HashMap<String, Integer>> entry: scopeIdentifierCounts.entrySet()) {
-            if(entry.getValue().size() > maxCount || maxCount == -1) {
+        for (Entry<Integer, HashMap<String, Integer>> entry :
+                scopeIdentifierCounts.entrySet()) {
+            if (entry.getValue().size() > maxCount || maxCount == -1) {
+                maxCount = entry.getValue().size();
+                maxScope = entry.getKey();
+            }
+            System.out.println(entry.getKey() + ": " + entry.getValue().size());
+        }
+
+        return maxScope;
+    }
+
+    public List<Entry<Integer, List<String>>> distinctScopeIdentifiers() {
+        int maxScope = -1;
+        int maxCount = -1;
+
+        for (Entry<Integer, HashMap<String, Integer>> entry :
+                scopeIdentifierCounts.entrySet()) {
+            if (entry.getValue().size() > maxCount || maxCount == -1) {
                 maxCount = entry.getValue().size();
                 maxScope = entry.getKey();
             }
