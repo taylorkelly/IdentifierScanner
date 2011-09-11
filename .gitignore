@@ -28,3 +28,5 @@ build/classes/identifierscanner/dfa/DFA.class
 build/classes/identifierscanner/Token.class
 
 build/classes/identifierscanner/Scanner.class
+
+build/classes/identifierscanner/statistics/ValueComparator.class

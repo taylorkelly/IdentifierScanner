@@ -19,7 +19,7 @@ public class Scanner {
     public Scanner(InputStreamReader charReader) {
         this(charReader, false);
     }
-    
+
     public Scanner(InputStreamReader charReader, boolean ignoreWhiteSpace) {
         savedChar = (char) 0;
         this.ignoreWhiteSpace = ignoreWhiteSpace;
@@ -171,7 +171,6 @@ public class Scanner {
         reservedWords.put("for", new Token("for", "FOR"));
         reservedWords.put("goto", new Token("goto", "GOTO"));
         reservedWords.put("if", new Token("if", "IF"));
-        reservedWords.put("inline", new Token("inline", "INLINE"));
         reservedWords.put("int", new Token("int", "TYPE"));
         reservedWords.put("long", new Token("long", "TYPE"));
         reservedWords.put("register", new Token("register", "REGISTER"));
@@ -188,9 +187,44 @@ public class Scanner {
         reservedWords.put("void", new Token("void", "TYPE"));
         reservedWords.put("volatile", new Token("volatile", "VOLATILE"));
         reservedWords.put("while", new Token("while", "WHILE"));
-        reservedWords.put("_Bool", new Token("_Bool", "BOOL"));
-        reservedWords.put("_Complex", new Token("_Complex", "COMPLEX"));
-        reservedWords.put("_Imaginary", new Token("_Imaginary", "IMAGINARY"));
+
+        reservedWords.put("inline", new Token("inline", "ISO_INLINE"));
+        reservedWords.put("restrict", new Token("restrict", "ISO_RESTRICT"));
+        reservedWords.put("_Bool", new Token("_Bool", "ISO_BOOL"));
+        reservedWords.put("_Complex", new Token("_Complex", "ISO_COMPLEX"));
+        reservedWords.put("_Imaginary", new Token("_Imaginary", "ISO_IMAGINARY"));
+
+        reservedWords.put("__FUNCTION__", new Token("__FUNCTION__", "GNU_FUNCTION"));
+        reservedWords.put("__PRETTY_FUNCTION__", new Token("__PRETTY_FUNCTION__", "GNU_FUNCTION"));
+        reservedWords.put("__alignof", new Token("__alignof", "GNU_ALIGNOF"));
+        reservedWords.put("__alignof__", new Token("__alignof", "GNU_ALIGNOF"));
+        reservedWords.put("__asm", new Token("__asm", "GNU_ASM"));
+        reservedWords.put("__asm__", new Token("__asm__", "GNU_ASM"));
+        reservedWords.put("__attribute", new Token("__attribute", "GNU_ATTRIBUTE"));
+        reservedWords.put("__attribute__", new Token("__attribute__", "GNU_ATTRIBUTE"));
+        reservedWords.put("__builtin_offsetof", new Token("__builtin_offsetof", "GNU_BUILTINOFFSET"));
+        reservedWords.put("__builtin_va_arg", new Token("__builtin_va_arg", "GNU_BUILTINVARG"));
+        reservedWords.put("__complex", new Token("__complex", "GNU_COMPLEX"));
+        reservedWords.put("__complex__", new Token("__complex__", "GNU_COMPLEX"));
+        reservedWords.put("__const", new Token("__const", "GNU_CONST"));
+        reservedWords.put("__extension__", new Token("__extension__", "GNU_EXTENSION"));
+        reservedWords.put("__func__", new Token("__func__", "GNU_FUNCTION"));
+        reservedWords.put("__imag", new Token("__imag", "GNU_IMAG"));
+        reservedWords.put("__imag__", new Token("__imag__", "GNU_IMAG"));
+        reservedWords.put("__inline", new Token("__inline", "GNU_INLINE"));
+        reservedWords.put("__inline__", new Token("__inline__", "GNU_INLINE"));
+        reservedWords.put("__label__", new Token("__label__", "GNU_LABEL"));
+        reservedWords.put("__null", new Token("__null", "GNU_NULL"));
+        reservedWords.put("__real", new Token("__real", "GNU_REAL"));
+        reservedWords.put("__real__", new Token("__real__", "GNU_REAL"));
+        reservedWords.put("__restrict", new Token("__restrict", "GNU_RESTRICT"));
+        reservedWords.put("__restrict__", new Token("__restrict__", "GNU_RESTRICT"));
+        reservedWords.put("__signed", new Token("__signed", "GNU_SIGNED"));
+        reservedWords.put("__signed__", new Token("__signed__", "GNU_SIGNED"));
+        reservedWords.put("__thread", new Token("__thread", "GNU_THREAD"));
+        reservedWords.put("__typeof", new Token("__typeof", "GNU_TYPEOF"));
+        reservedWords.put("__volatile", new Token("__volatile", "GNU_VOLATILE"));
+        reservedWords.put("__volatile__", new Token("__volatile__", "GNU_VOLATILE"));
 
         if (reservedWords.containsKey(token.getValue())) {
             return reservedWords.get(token.getValue());

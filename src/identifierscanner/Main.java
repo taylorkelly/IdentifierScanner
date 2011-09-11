@@ -1,5 +1,6 @@
 package identifierscanner;
 
+import identifierscanner.statistics.Statistics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,6 +17,8 @@ public class Main {
      */
     public static void main(String[] args) {
         InputStreamReader charReader;
+        Scanner scan;
+        Statistics stats = new Statistics();
 
         try {
             if (args.length == 0) {
@@ -28,17 +31,19 @@ public class Main {
             return;
         }
 
-        Scanner scan = new Scanner(charReader, true);
+        scan = new Scanner(charReader, true);
 
         try {
             while (scan.hasNextToken()) {
                 Token token = scan.nextToken();
-                //if (token.getType().equals("IDENTIFIER") || token.getType().equals("OPENCURLY") || token.getType().equals("CLOSECURLY"))
-                    System.out.println(token);
+                stats.takeToken(token);
             }
         } catch (IOException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
+
+        stats.topTenIdentifiers();
+        stats.topScope();
 
     }
 }
