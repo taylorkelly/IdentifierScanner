@@ -32,3 +32,13 @@ build/classes/identifierscanner/Scanner.class
 build/classes/identifierscanner/statistics/ValueComparator.class
 
 build/classes/identifierscanner/statistics/IdentifierSequence.class
+
+nbproject/private/private.xml
+
+build/classes/identifierscanner/util/Pair.class
+
+build/classes/identifierscanner/util/BasicEntry.class
+
+build/classes/identifierscanner/statistics/ReverseValueComparator.class
+
+build/classes/identifierscanner/ReservedWords.class
