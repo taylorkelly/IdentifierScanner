@@ -26,12 +26,14 @@ public class Main {
         InputStreamReader charReader;
         Scanner scan;
         IdentifierSequence stats = new IdentifierSequence();
-
+        File file;
         try {
             if (args.length == 0) {
-                charReader = new FileReader(new File("Gcc_Preprocessed.c"));
+                file = new File("Gcc_Preprocessed.c");
+                charReader = new FileReader(file);
             } else {
-                charReader = new FileReader(new File(args[0]));
+                file = new File(args[0]);
+                charReader = new FileReader(file);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("Error: Could not find file\n" + ex.getMessage());
@@ -49,7 +51,11 @@ public class Main {
             System.out.println("Error: " + ex.getMessage());
         }
 
+
+
         // Print out all the stats
+        System.out.println("File: " + file.getName());
+        System.out.println();
         System.out.println("---------- Question 1 ----------");
         List<Entry<String, Integer>> top10Ids = stats.topTenIdentifiers();
         int i = 1;
